@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquakes and the Dynamic Earth (Science 7)</title>
+    <!-- Tailwind CSS for modern, premium utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; /* Slate 900 */
+            color: #f1f5f9; /* Slate 100 */
+            line-height: 1.6; 
+        }
+        
+        /* Custom scrollbar behaviors */
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Navigation highlights */
+        .active-part { 
+            background: linear-gradient(135deg, #0ea5e9, #0284c7); 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+        .active-lesson { 
+            background-color: #1e293b; 
+            color: #38bdf8; 
+            border-left: 4px solid #38bdf8; 
+        }
+        .active-content-tab { 
+            border-bottom: 3px solid #38bdf8; 
+            color: #38bdf8; 
+            font-weight: 700; 
+        }
+
+        /* Subtle page change transitions */
+        .content-fade { 
+            animation: fadeIn 0.4s ease-out; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(8px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        /* Custom styled educational data tables */
+        .content-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 1.5rem 0; 
+            background: #1e293b; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
+            border: 1px solid #334155; 
+        }
+        .content-table th, .content-table td { 
+            padding: 14px 18px; 
+            text-align: left; 
+            border-bottom: 1px solid #334155; 
+            font-size: 0.875rem; 
+        }
+        .content-table th { 
+            background-color: #0f172a; 
+            font-weight: 800; 
+            color: #94a3b8; 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            letter-spacing: 0.05em; 
+        }
+        .content-table tr:hover {
+            background-color: #243249;
+        }
+
+        /* Quiz interactivity styles */
+        .quiz-option { 
+            border: 2px solid #334155; 
+            background-color: #1e293b;
+            transition: all 0.2s; 
+            cursor: pointer; 
+            text-align: left; 
+            width: 100%; 
+            padding: 1.25rem; 
+            border-radius: 0.875rem; 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            margin-bottom: 0.75rem; 
+            color: #cbd5e1;
+        }
+        .quiz-option:hover:not(.disabled) { 
+            border-color: #38bdf8; 
+            background-color: #0f172a; 
+            color: #f8fafc;
+        }
+        .quiz-selected { 
+            border-color: #0ea5e9; 
+            background-color: #0c4a6e; 
+            color: #e0f2fe;
+        }
+        .quiz-correct { 
+            border-color: #22c55e !important; 
+            background-color: #052e16 !important; 
+            color: #4ade80 !important; 
+        }
+        .quiz-wrong { 
+            border-color: #ef4444 !important; 
+            background-color: #450a0a !important; 
+            color: #fca5a5 !important; 
+        }
+        
+        /* General layout blocks */
+        .lesson-title { 
+            border-left: 5px solid #0ea5e9; 
+            padding-left: 1.25rem; 
+            margin-bottom: 1.75rem; 
+            font-weight: 900; 
+            font-size: 1.875rem; 
+            color: #f8fafc;
+            letter-spacing: -0.025em;
+        }
+        .info-block { 
+            background: #0c4a6e; 
+            border-radius: 0.75rem; 
+            padding: 1.5rem; 
+            margin: 1.5rem 0; 
+            border: 1px solid #0284c7; 
+            color: #e0f2fe;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden bg-slate-950">
+
+    <!-- Top Navigation -->
+    <nav class="bg-slate-900 border-b border-slate-800 text-white shadow-xl z-30">
+        <div class="px-6 py-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-orange-500 rounded-xl shadow-lg shadow-orange-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-base font-black uppercase tracking-wider text-slate-100">Earthquakes & The Dynamic Earth</h1>
+                    <p class="text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Science 7 Interactive Learning Suite</p>
+                </div>
+            </div>
+            <!-- Main Content Parts selectors -->
+            <div class="flex flex-wrap gap-1.5">
+                <button onclick="changePart(1)" id="part-btn-1" class="px-3.5 py-2.5 rounded-lg text-[10px] font-bold uppercase transition-all tracking-wider text-slate-300 hover:bg-slate-800">PART I: INTRO & FAULTS</button>
+                <button onclick="changePart(2)" id="part-btn-2" class="px-3.5 py-2.5 rounded-lg text-[10px] font-bold uppercase transition-all tracking-wider text-slate-300 hover:bg-slate-800">PART II: SEISMIC WAVES</button>
+                <button onclick="changePart(3)" id="part-btn-3" class="px-3.5 py-2.5 rounded-lg text-[10px] font-bold uppercase transition-all tracking-wider text-slate-300 hover:bg-slate-800">PART III: TSUNAMIS</button>
+                <button onclick="changePart(4)" id="part-btn-4" class="px-3.5 py-2.5 rounded-lg text-[10px] font-bold uppercase transition-all tracking-wider text-slate-300 hover:bg-slate-800">GENERAL REVIEW</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 border-r border-slate-850 flex flex-col z-20 shadow-md">
+            <div class="p-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Chapters</p>
+                <span class="text-[9px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-bold" id="lessons-counter">3 Lessons</span>
+            </div>
+            <div id="lesson-list" class="flex-1 overflow-y-auto sidebar-scroll"></div>
+        </aside>
+
+        <!-- Main Content Panel split into Text description and Interactive widgets -->
+        <main class="flex-1 flex flex-col bg-slate-950 overflow-hidden">
+            <!-- Content Sub-Tabs -->
+            <div id="content-tabs-container" class="bg-slate-900/90 border-b border-slate-800 px-6 flex gap-6 overflow-x-auto no-scrollbar scroll-smooth"></div>
+            
+            <!-- Dual-Column Viewer: Left for rich curriculum text, Right for active simulation model -->
+            <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+                <!-- Textual curriculum column -->
+                <div id="content-viewer" class="flex-1 overflow-y-auto p-6 lg:p-10 scroll-smooth border-r border-slate-900">
+                    <!-- Loaded dynamically -->
+                </div>
+                <!-- Interactive simulation widget column -->
+                <div id="interactive-panel" class="w-full lg:w-1/2 p-6 bg-slate-900/30 flex flex-col justify-center items-center border-t lg:border-t-0 border-slate-800 overflow-y-auto">
+                    <!-- Loaded dynamically based on active tab -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentPart = 1;
+        let currentLessonIdx = 0;
+        let currentTabIdx = 0;
+        let currentAnimationId = null; // Global animation loop tracker
+        
+        let quizState = {
+            'part1': { answers: [], submitted: false },
+            'part2': { answers: [], submitted: false },
+            'part3': { answers: [], submitted: false },
+            'general': { answers: [], submitted: false }
+        };
+
+        // Helper to cleanly terminate running canvas loops before mounting new ones
+        function cancelActiveAnimation() {
+            if (currentAnimationId) {
+                cancelAnimationFrame(currentAnimationId);
+                currentAnimationId = null;
+            }
+        }
+
+        // Complete educational dataset incorporating 100% of final curriculum lessons
+        const appData = {
+            1: {
+                label: "PART I: INTRO & FAULTS",
+                lessons: [
+                    {
+                        title: "1. INTRODUCTION TO EARTHQUAKES & FAULTS",
+                        tabs: [
+                            { 
+                                name: "Overview & Lithosphere", 
+                                widget: "tectonic_intro",
+                                content: `
+                                    <div class="lesson-title">Introduction to Earthquakes and Faults</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        Earthquakes are among the most powerful and transformative natural phenomena on our planet, serving as a stark reminder of the dynamic forces operating beneath our feet. At their core, earthquakes represent the sudden release of energy in the Earth's lithosphere, which creates seismic waves that radiate outward from the source. This release typically occurs when rocks under immense stress finally break or slip along a fracture plane known as a fault. While the ground may feel solid and unchanging in our daily lives, it is actually composed of massive tectonic plates that are constantly in motion, grinding against, pulling away from, or diving beneath one another in a slow but relentless geological dance.
+                                    </p>
+                                    <div class="info-block mt-4">
+                                        <strong>The Dynamic Spring Principle:</strong> When the stress accumulated between tectonic plates exceeds the frictional forces holding them in place, the resulting rupture can cause significant ground shaking, surface displacement, and secondary hazards like landslides or liquefaction.
+                                    </div>
+                                    <p class="text-slate-300 mt-4 text-sm">
+                                        The study of earthquakes and faults is not merely a theoretical pursuit; it is a vital necessity for understanding the safety and structural integrity of our civilizations. By examining the patterns of where these events occur, scientists can identify "seismic gaps" and high-risk zones, allowing communities to better prepare through rigorous engineering standards and emergency response protocols. This introduction serves as the foundation for exploring how our planet’s internal heat drives the movement of its outer shell, shaping the landscapes we inhabit.
+                                    </p>
+                                `
+                            },
+                            { 
+                                name: "Mechanical Crust Properties", 
+                                widget: "tectonic_intro",
+                                content: `
+                                    <div class="lesson-title">Mechanical Properties of the Crust</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        Understanding the relationship between earthquakes and faults requires a deep dive into the mechanical properties of the Earth’s crust. The crust is not a uniform shell but a fragmented mosaic of plates. As these plates move—driven by mantle convection—they interact at boundaries where energy is stored like a coiled spring. When the "spring" finally snaps, the vibration felt is the earthquake.
+                                    </p>
+                                    <p class="text-slate-300 mt-4 text-sm">
+                                        By studying the geometry of faults and the history of their movements, we can reconstruct the geological past and make informed predictions about future seismic activity. This module will guide you through the intricacies of these mechanical breaks, the global hotspots of activity, and the specific geological context of the Philippines. Use the interactive 3D crust widget on the right to visualize mantle convection flows and lithospheric stress vectors.
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 1: THE PACIFIC RING OF FIRE",
+                        tabs: [
+                            { 
+                                name: "Why Active?", 
+                                widget: "ring_of_fire",
+                                content: `
+                                    <div class="lesson-title">Why the Ring of Fire is Seismically Active</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        The Pacific Ring of Fire is a 40,000-kilometer horseshoe-shaped basin that is the most seismically and volcanically active zone in the world. Its high level of activity is primarily due to the prevalence of <strong>subduction zones</strong>, where dense oceanic plates collide with and slide beneath lighter continental or oceanic plates. As the subducting plate descends into the mantle, it creates intense friction and pressure, which eventually results in the sudden fractures that cause earthquakes. This process also subjects the descending plate to high temperatures, causing it to melt and form magma, which rises to the surface to create the volcanic arcs that trace the perimeter of the Pacific Ocean.
+                                    </p>
+                                    <p class="text-slate-300 mt-4 text-sm">
+                                        Beyond subduction, the Ring of Fire is characterized by a complex network of plate boundaries, including transform faults and spreading centers. In areas like the San Andreas Fault in California, plates slide horizontally past each other, creating "stick-slip" dynamics where energy builds up for decades before being released in a major tremor. The sheer diversity of plate interactions within this region means that it experiences every type of seismic event, from deep-focus earthquakes occurring hundreds of kilometers below the surface to shallow, destructive shocks that occur right at the crustal level.
+                                    </p>
+                                    <p class="text-slate-300 mt-4 text-sm">
+                                        The significance of the Ring of Fire lies in its relentless energy output; it accounts for approximately <strong>90% of the world's earthquakes</strong> and <strong>75% of the world's active volcanoes</strong>. This concentration of activity is a direct result of the Pacific Plate being surrounded by several other major plates, such as the Eurasian, North American, Juan de Fuca, Cocos, Nazca, and Philippine Sea plates.
+                                    </p>
+                                `
+                            },
+                            { 
+                                name: "Philippine Context", 
+                                widget: "philippine_fault_finder",
+                                content: `
+                                    <div class="lesson-title">Philippine Context & Relevance</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        The Philippines is situated in a uniquely precarious geological position, located right along the western edge of the Pacific Ring of Fire. This archipelago is a product of complex tectonic interactions involving the Philippine Sea Plate, the Eurasian Plate, and several smaller microplates. Because the country is effectively "squeezed" between these converging masses, it is crisscrossed by numerous active fault lines and dotted with active volcanoes. This geographical reality means that earthquakes are not a rare occurrence in the Philippines but a regular part of its geological life cycle, influencing everything from the formation of its mountains to the fertile soil in its valleys.
+                                    </p>
+                                    <div class="info-block">
+                                        Historically, the Philippines has suffered from devastating earthquakes that have caused significant loss of life and property damage, such as the 1990 Luzon earthquake and the 2013 Bohol earthquake.
+                                    </div>
+                                    <p class="text-slate-300 text-sm">
+                                        Major cities, including Metro Manila, are built near or directly on top of active fault systems like the West Valley Fault. Many of the most powerful earthquakes occurring in the Philippine Trench or the Manila Trench have the potential to trigger tsunamis, threatening coastal communities. This makes the study of faults and earthquakes a matter of national security and public safety. By educating ourselves on our unique local context, we empower a new generation to build resilient communities.
+                                    </p>
+                                `
+                            },
+                            { 
+                                name: "Pacific Ring Map Guide", 
+                                widget: "ring_of_fire",
+                                content: `
+                                    <div class="lesson-title">Exploring the Map of Tension</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        The map of the Pacific Ring of Fire illustrates the massive scale of tectonic interaction surrounding the Pacific Basin. As observed on the interactive model, the "ring" is not a perfect circle but a jagged series of trenches, volcanic arcs, and plate boundaries that stretch from the tip of South America, up the coast of North America, across the Aleutian Islands, and down through Japan, the Philippines, and New Zealand. Each node on this map represents a zone of high geological tension where the Earth's crust is being actively recycled or reshaped.
+                                    </p>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        When examining the interactive map near the Western Pacific, you can see the dense concentration of activity around the Philippine archipelago. This visual data confirms why the region experiences frequent tremors; it is surrounded by subduction zones like the Philippine Trench. The map also highlights the "trench-arc" systems, where the deep ocean floor drops away just before a line of volcanic mountains rises.
+                                    </p>
+                                `
+                            },
+                            { 
+                                name: "Causes of Seismic Activity", 
+                                widget: "tectonic_intro",
+                                content: `
+                                    <div class="lesson-title">Causes of Seismic Activity</div>
+                                    <p class="text-slate-300 text-sm">
+                                        Below is the scientific breakdown comparing tectonic, magmatic, and human-induced crustal stresses.
+                                    </p>
+                                    <table class="content-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cause</th>
+                                                <th>Description</th>
+                                                <th>Primary Mechanism</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-orange-400">Tectonic Movements</td>
+                                                <td>The shifting of large plates of the Earth's lithosphere.</td>
+                                                <td>Mantle Convection</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-yellow-400">Volcanic Activity</td>
+                                                <td>Movement of magma beneath the surface or explosive eruptions.</td>
+                                                <td>Magmatic Pressure</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-sky-400">Human-Induced</td>
+                                                <td>Activities like mining, fracking, or large reservoir filling.</td>
+                                                <td>Crustal Stress Alteration</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-400 text-xs mt-3">
+                                        Tectonic movements are the most common and powerful cause of seismic activity. This process is driven by the internal heat of the Earth, which creates convection currents in the semi-liquid mantle. As the mantle moves, it carries the rigid tectonic plates above it. Volcanic earthquakes act as warning signs for impending eruptions, while human industrial actions (like reservoir loading or fracking) can trigger induced seismicity by lubricating pre-existing fault planes.
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 2: MAPPING FAULTS & PRONE AREAS",
+                        tabs: [
+                            {
+                                name: "Stress & Strain Science",
+                                widget: "fault_simulator",
+                                content: `
+                                    <div class="lesson-title">Understanding Faults Through Stress & Strain</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        A fault is essentially a fracture or zone of fractures between two blocks of rock. These blocks move relative to each other, and this movement can occur rapidly, in the form of an earthquake, or slowly, in the form of "fault creep." Scientists explain faults using the principles of structural geology, focusing on the concepts of stress and strain.
+                                    </p>
+                                    <div class="info-block">
+                                        <strong>Stress</strong> is the force applied to the rock, while <strong>strain</strong> is the resulting deformation. When the strain becomes too great for the rock to absorb elastically, the rock undergoes "brittle failure," resulting in a fault.
+                                    </div>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        By mapping the orientation and length of a fault, scientists can estimate the maximum potential magnitude of an earthquake it could produce. Generally, the longer the fault segment that ruptures, the more energy is released. Mapping these faults involves a combination of field observations, satellite imagery, and seismic reflection profiles. Geologists look for geomorphic signatures like offset streams and scarps. Modern LiDAR (Light Detection and Ranging) has allowed scientists to find hidden lines beneath dense vegetation.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "PH Fault Systems",
+                                widget: "philippine_fault_finder",
+                                content: `
+                                    <div class="lesson-title">Major Fault Systems in the Philippines</div>
+                                    <p class="text-slate-300 text-base mb-4">
+                                        The Philippine archipelago contains several highly active mechanical fractures:
+                                    </p>
+                                    <ul class="space-y-4">
+                                        <li class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                            <strong class="text-orange-400">Philippine Fault Zone (PFZ):</strong> A 1,200-km long major tectonic feature that transects the entire archipelago from Luzon to Mindanao. It is a left-lateral strike-slip fault.
+                                        </li>
+                                        <li class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                            <strong class="text-red-400">Valley Fault System (VFS):</strong> Consists of two segments: the East Valley Fault and the West Valley Fault. The West Valley Fault runs through densely populated areas like Quezon City, Marikina, and Taguig.
+                                        </li>
+                                        <li class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                            <strong class="text-sky-400">Lubang Fault:</strong> Located between Mindoro and Batangas, this is an active strike-slip fault often responsible for tremors felt in Southern Luzon.
+                                        </li>
+                                        <li class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                                            <strong class="text-yellow-400">Central Mindanao Fault:</strong> A significant system that has produced several large earthquakes in recent years, impacting the Davao and Cotabato regions.
+                                        </li>
+                                    </ul>
+                                `
+                            },
+                            {
+                                name: "Interpreting Maps",
+                                widget: "philippine_fault_finder",
+                                content: `
+                                    <div class="lesson-title">How to Read Fault Maps</div>
+                                    <p class="text-slate-300 mb-4">
+                                        Geological agencies mark different traits to define hazard maps:
+                                    </p>
+                                    <ul class="list-disc ml-6 space-y-2 text-slate-300 text-sm">
+                                        <li><strong>Active vs. Inactive Faults:</strong> Active faults are represented by solid lines (usually red), indicating they have moved within the last 10,000 years. Inactive faults may be dashed or gray.</li>
+                                        <li><strong>Fault Trace:</strong> The line on the map representing the intersection of the fault with the Earth's surface.</li>
+                                        <li><strong>Buffer Zones:</strong> Areas surrounding a fault where building is restricted. In the Philippines, PHIVOLCS recommends a <strong>5-meter buffer</strong> on both sides of a fault trace.</li>
+                                        <li><strong>Epicenter Locations:</strong> Maps often show historical earthquake epicenters as dots of varying sizes to indicate past activity levels.</li>
+                                    </ul>
+                                `
+                            },
+                            {
+                                name: "Earthquake Risk Levels",
+                                widget: "lightbulb_magnitude_intensity",
+                                content: `
+                                    <div class="lesson-title">Location Risk Characterization</div>
+                                    <table class="content-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Risk Level</th>
+                                                <th>Geological Characteristic</th>
+                                                <th>Typical Location</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-red-950/20">
+                                                <td class="font-bold text-red-400">High Risk</td>
+                                                <td>Proximity to active faults or soft, alluvial soil.</td>
+                                                <td>Valley floors, coastal areas, near fault traces.</td>
+                                            </tr>
+                                            <tr class="bg-yellow-950/20">
+                                                <td class="font-bold text-yellow-400">Moderate Risk</td>
+                                                <td>Solid bedrock but within 50-100km of a major fault.</td>
+                                                <td>Hilly regions, inland plains.</td>
+                                            </tr>
+                                            <tr class="bg-green-950/20">
+                                                <td class="font-bold text-green-400">Low Risk</td>
+                                                <td>Far from active faults and stable geological formations.</td>
+                                                <td>Palawan (stable region of the Philippines).</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-300 mt-4 text-xs leading-relaxed">
+                                        Risk is not just about proximity to faults, but also soil composition. Areas with soft, sandy, or water-saturated soil are prone to <strong>liquefaction</strong>, where the ground behaves like a liquid during shaking. While Luzon and Mindanao are highly active, the island of <strong>Palawan</strong> sits on a different, stable tectonic block that is not heavily deformed.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Safe Locations",
+                                widget: "lightbulb_magnitude_intensity",
+                                content: `
+                                    <div class="lesson-title">Safe Environments & Protocols</div>
+                                    <p class="text-slate-300 text-sm mb-4">
+                                        When shaking begins, safety involves finding structural pockets and open coordinates:
+                                    </p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                            <h4 class="font-bold text-emerald-400">Open Spaces</h4>
+                                            <p class="text-xs text-slate-400 mt-1">Fields away from buildings, trees, power lines, and overpasses.</p>
+                                        </div>
+                                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                            <h4 class="font-bold text-emerald-400">Sound Buildings</h4>
+                                            <p class="text-xs text-slate-400 mt-1">Modern designs matching current seismic codes.</p>
+                                        </div>
+                                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                            <h4 class="font-bold text-emerald-400">High Ground</h4>
+                                            <p class="text-xs text-slate-400 mt-1">Move at least 10 meters above sea level if near coasts to avoid tsunamis.</p>
+                                        </div>
+                                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                            <h4 class="font-bold text-emerald-400">Under Sturdy Furniture</h4>
+                                            <p class="text-xs text-slate-400 mt-1">Execute "Drop, Cover, and Hold on" position to protect head/neck.</p>
+                                        </div>
+                                    </div>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 3: FAULT TYPES & CLASSIFICATIONS",
+                        tabs: [
+                            {
+                                name: "Stress Classifications",
+                                widget: "fault_simulator",
+                                content: `
+                                    <div class="lesson-title">Scientific Basis of Fault Classification</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Faults are classified based on the direction of relative displacement between blocks of rock. This displacement is driven by three main types of stress:
+                                    </p>
+                                    <ul class="list-disc ml-6 mt-3 space-y-2 text-xs text-slate-300">
+                                        <li><strong>Tension:</strong> Forces pulling rocks apart, common at divergent boundaries.</li>
+                                        <li><strong>Compression:</strong> Forces squeezing rocks together, common at convergent boundaries.</li>
+                                        <li><strong>Shear:</strong> Forces sliding rocks horizontally past one another, common at transform boundaries.</li>
+                                    </ul>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        A <strong>dip-slip</strong> fault is one where movement is primarily vertical (up or down the slope of the fault plane), while a <strong>strike-slip</strong> fault involves horizontal movement. Most real faults are actually <strong>oblique-slip</strong>, possessing both vertical and horizontal elements.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Fault Mechanical Types",
+                                widget: "fault_simulator",
+                                content: `
+                                    <div class="lesson-title">The Primary Fault Types</div>
+                                    <ul class="space-y-3 text-slate-300 text-xs">
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-sky-400">Normal Fault:</strong> Caused by tensional stress. The hanging wall (rock block above the fault) moves downward relative to the footwall (block below).
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-red-400">Reverse Fault:</strong> Caused by compressional stress. The hanging wall moves upward relative to the footwall.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-orange-400">Thrust Fault:</strong> A low-angle reverse fault (less than 45 degrees of dip), typical of subduction plate interfaces.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-yellow-400">Strike-Slip Fault:</strong> Caused by shear stress. Blocks slide horizontally past each other with minimal vertical shift.
+                                        </li>
+                                    </ul>
+                                `
+                            },
+                            {
+                                name: "Comparison Matrix",
+                                widget: "fault_simulator",
+                                content: `
+                                    <div class="lesson-title">Fault Type Comparison Table</div>
+                                    <table class="content-table text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Fault Type</th>
+                                                <th>Stress Type</th>
+                                                <th>Movement Direction</th>
+                                                <th>Common Setting</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-sky-400">Normal</td>
+                                                <td>Tension</td>
+                                                <td>Vertical (Hanging wall down)</td>
+                                                <td>Divergent Boundaries</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-red-400">Reverse</td>
+                                                <td>Compression</td>
+                                                <td>Vertical (Hanging wall up)</td>
+                                                <td>Convergent Boundaries</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-yellow-400">Strike-Slip</td>
+                                                <td>Shear</td>
+                                                <td>Horizontal</td>
+                                                <td>Transform Boundaries</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-400 text-xs leading-relaxed">
+                                        Normal faults create rift valleys (e.g., East African Rift). Reverse faults build steep mountain ridges (e.g., Himalayas). Strike-slip faults produce shallow, intense seismic events (e.g., San Andreas Fault or the Philippine Fault).
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Elastic Rebound Theory",
+                                widget: "elastic_rebound",
+                                content: `
+                                    <div class="lesson-title">How Strain Releases: Elastic Rebound Theory</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Imagine holding a wooden ruler and slowly bending it. As you apply force, the ruler bends and stores elastic energy. If you keep bending it, it will eventually reach its breaking point and snap. When it snaps, the ruler returns to its straight shape, but the stored energy is released as a vibration that stings your hands. This is the <strong>Elastic Rebound Theory</strong>.
+                                    </p>
+                                    <div class="info-block text-xs">
+                                        Friction locks the rocks together at a fault line. While the edges are stuck, the plate continues to move, warping the crust and storing immense elastic energy. When stress overcomes friction, the rocks rupture at the <strong>focus (hypocenter)</strong>, releasing waves of vibration.
+                                    </div>
+                                    <p class="text-slate-400 text-xs mt-2">
+                                        Use the bending ruler simulator on the right to build stress and observe the snap!
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    { title: "SUMMATIVE TEST (PART I)", type: "quiz", key: "part1" }
+                ]
+            },
+            2: {
+                label: "PART II: SEISMIC WAVES",
+                lessons: [
+                    {
+                        title: "2. INTRODUCTION TO SEISMIC WAVES",
+                        tabs: [
+                            {
+                                name: "Overview & Earth Scan",
+                                widget: "seismic_grid_motion",
+                                content: `
+                                    <div class="lesson-title">Seismic Waves: Messengers of the Interior</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        Seismic waves are the mechanical vibrations carrying energy released during an earthquake from the focus to the surface. These waves travel through different layers of the Earth, responding uniquely to the materials they encounter.
+                                    </p>
+                                    <div class="info-block">
+                                        <strong>Earth's CAT Scan:</strong> By measuring the paths and speeds of these waves, scientists determined that the Earth has a solid inner core, a liquid outer core, and a thick mantle. For instance, waves that cannot travel through liquids disappear at certain depths, proving the liquid state of the outer core.
+                                    </div>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        Additionally, the time delay between the arrival of fast compressional waves and slower shear waves allows seismologists to calculate the exact distance to an earthquake's epicenter, a method known as triangulation.
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 1: EFFECTS OF EARTHQUAKES",
+                        tabs: [
+                            {
+                                name: "Earthquake Hazards",
+                                widget: "seismic_grid_motion",
+                                content: `
+                                    <div class="lesson-title">Primary & Secondary Earthquake Effects</div>
+                                    <table class="content-table text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Effect</th>
+                                                <th>Description</th>
+                                                <th>Potential Impact</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-orange-400">Ground Shaking</td>
+                                                <td>The primary vibration of the ground.</td>
+                                                <td>Collapse of buildings and infrastructure.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-yellow-400">Liquefaction</td>
+                                                <td>Soil loses strength and acts like a liquid.</td>
+                                                <td>Sinking or tilting of structures.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-red-400">Landslides</td>
+                                                <td>Downslope movement of rock and soil.</td>
+                                                <td>Burial of communities in hilly areas.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-sky-400">Tsunami</td>
+                                                <td>Large sea waves caused by underwater quakes.</td>
+                                                <td>Coastal flooding and destruction.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                        <strong>Liquefaction</strong> occurs in loose, water-saturated sandy soils. When shaken, water pressure increases to where the soil loses friction, causing buildings to tilt. Landslides are triggered when steep slopes are shaken, while tsunamis are initiated by underwater vertical displacements.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Role of Magnitude",
+                                widget: "lightbulb_magnitude_intensity",
+                                content: `
+                                    <div class="lesson-title">Magnitude and Energy Release</div>
+                                    <p class="text-slate-300 text-sm mb-4">
+                                        Magnitude is a quantitative measure of total energy released at the focus:
+                                    </p>
+                                    <ul class="space-y-3 text-xs text-slate-300">
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong>Richter Scale:</strong> An older logarithmic scale measuring the amplitude of the largest wave on a seismogram.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong>Moment Magnitude Scale (Mw):</strong> The modern standard representing total energy based on rock rigidity, fault slip area, and average displacement.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800 text-amber-300">
+                                            <strong>Logarithmic Nature:</strong> Each whole number step represents a <strong>10-fold increase in wave amplitude</strong> and roughly a <strong>32-fold increase in released energy</strong>.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong>Invariance:</strong> An earthquake has only one magnitude value that stays constant, unlike intensity which varies by location.
+                                        </li>
+                                    </ul>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 2: EARTHQUAKE VOCABULARY",
+                        tabs: [
+                            {
+                                name: "Anatomy of a Quake",
+                                widget: "earthquake_anatomy",
+                                content: `
+                                    <div class="lesson-title">The Anatomy of an Earthquake</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        An earthquake contains specific elements along its rupture geometry:
+                                    </p>
+                                    <ul class="list-disc ml-6 mt-3 space-y-2 text-xs text-slate-300">
+                                        <li><strong>Focus (Hypocenter):</strong> The actual location inside the Earth's crust where the rocks first break and slide.</li>
+                                        <li><strong>Epicenter:</strong> The point on the Earth's surface directly above the focus. It experiences the earliest and often most severe shaking.</li>
+                                        <li><strong>Fault Plane:</strong> The surface along which the sliding occurs.</li>
+                                    </ul>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        Seismic waves radiate outwards in spherical fronts from the focus. Hover and interact with the 3D block model on the right to reveal the structures!
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Seismic Monitoring Tools",
+                                widget: "earthquake_anatomy",
+                                content: `
+                                    <div class="lesson-title">Seismic Measurement and Timing</div>
+                                    <table class="content-table text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Term</th>
+                                                <th>Definition</th>
+                                                <th>Key Characteristic</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-sky-400">Seismograph</td>
+                                                <td>An instrument that records seismic waves.</td>
+                                                <td>Works on inertia (produces a "Seismogram").</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-yellow-400">Aftershocks</td>
+                                                <td>Smaller quakes following a main shock.</td>
+                                                <td>Can continue for weeks as crust adjusts.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-red-400">Foreshocks</td>
+                                                <td>Small quakes that precede a larger one.</td>
+                                                <td>Hard to identify until the main shock happens.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="info-block text-xs mt-3">
+                                        <strong>The Seismic Gap Concept:</strong> Segments of active faults that have not ruptured for long periods of time. These gaps are highly dangerous because they represent locked zones accumulating severe stress.
+                                    </div>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 3: MEASUREMENT & SCALES",
+                        tabs: [
+                            {
+                                name: "Magnitude vs. Intensity",
+                                widget: "lightbulb_magnitude_intensity",
+                                content: `
+                                    <div class="lesson-title">Wattage vs. Brightness: The Lightbulb Analogy</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        To easily understand the difference between Magnitude and Intensity:
+                                    </p>
+                                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 my-4 text-xs">
+                                        <p class="text-amber-400 font-bold mb-2">The Analogy:</p>
+                                        <strong>Magnitude is like the wattage of a bulb:</strong> A 60-watt bulb is always 60-watts, regardless of where you stand. This represents the total energy at the source.
+                                        <br><br>
+                                        <strong>Intensity is like the brightness you perceive:</strong> If you are directly under the bulb, the light is bright (high intensity). If you are far away or behind a curtain, the light is dim (low intensity).
+                                    </div>
+                                    <p class="text-slate-300 text-xs">
+                                        In the Philippines, we use the <strong>PHIVOLCS Earthquake Intensity Scale (PEIS)</strong>, which uses Roman Numerals from <strong>I (Scarcely Perceptible)</strong> to <strong>X (Completely Devastating)</strong> to describe qualitative damage based on physical observation.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Comparison Chart",
+                                widget: "lightbulb_magnitude_intensity",
+                                content: `
+                                    <div class="lesson-title">Comparison: Magnitude vs. Intensity</div>
+                                    <table class="content-table text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Feature</th>
+                                                <th>Magnitude</th>
+                                                <th>Intensity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-slate-300">What it measures</td>
+                                                <td>Energy released at the source.</td>
+                                                <td>Strength of shaking at a location.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-slate-300">Tool / Scale</td>
+                                                <td>Seismograph (Moment Magnitude Mw).</td>
+                                                <td>Human observation (PEIS/Mercalli).</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-slate-300">Value</td>
+                                                <td>One single value for the entire event.</td>
+                                                <td>Varies depending on distance and soil type.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-300 text-xs leading-relaxed">
+                                        While magnitude mathematically defines geological energy, intensity defines the practical human impact. City planners use intensity maps (isoseismal lines) to direct emergency aids and enforce construction materials.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "PHIVOLCS FaultFinder",
+                                widget: "philippine_fault_finder",
+                                content: `
+                                    <div class="lesson-title">PHIVOLCS FaultFinder App</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        The PHIVOLCS FaultFinder is a web-based GIS tool allowing citizens to input their coordinate location to verify proximity to active faults. This fosters "disaster imagination"—the ability to anticipate and prepare for risks.
+                                    </p>
+                                    <p class="text-slate-300 text-xs mt-3">
+                                        Using the dynamic simulator on the right, choose your locality or coordinate in the Philippines to run a fault-line search. Make sure to stay outside the <strong>5-meter safe buffer zone</strong>!
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    { title: "SUMMATIVE TEST (PART II)", type: "quiz", key: "part2" }
+                ]
+            },
+            3: {
+                label: "PART III: TSUNAMIS & WAVES",
+                lessons: [
+                    {
+                        title: "3. INTRODUCTION TO SEISMIC WAVES & TSUNAMIS",
+                        tabs: [
+                            {
+                                name: "Deep Water Dynamics",
+                                widget: "tsunami_simulator",
+                                content: `
+                                    <div class="lesson-title">The Earthquake-Tsunami Connection</div>
+                                    <p class="text-slate-300 text-base leading-relaxed">
+                                        A tsunami is a series of massive waves generated by sudden displacements of the ocean floor, usually by undersea reverse/thrust faults at subduction zones.
+                                    </p>
+                                    <div class="info-block text-xs">
+                                        Unlike normal wind waves, which move only the top meters of water, a tsunami involves movement of the <strong>entire water column</strong>. In deep water, these waves travel at jet-plane speeds (up to 800 km/h) with wavelengths up to 100km and amplitudes of just a few centimeters.
+                                    </div>
+                                    <p class="text-slate-300 mt-4 text-xs">
+                                        As they transition to shallow waters, friction slows them down, piling up the wave into towering, destructive surges—a physical process called <strong>shoaling</strong>. Use the tsunami simulation on the right to visualize this transition.
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 1: TSUNAMI FORMATION",
+                        tabs: [
+                            {
+                                name: "Undersea Trigger & Wave",
+                                widget: "tsunami_simulator",
+                                content: `
+                                    <div class="lesson-title">Undersea Ruptures and Wave Stages</div>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Undersea thrust faulting acts like a giant piston, shoving the overlying sea water upward. This initiates wave propagation:
+                                    </p>
+                                    <ol class="list-decimal ml-6 mt-3 space-y-2 text-xs text-slate-300">
+                                        <li><strong>Undersea Earthquake:</strong> Subduction fault snaps, displacing tectonic block.</li>
+                                        <li><strong>Water Displacement:</strong> Water column forms a surface bulge.</li>
+                                        <li><strong>Wave Propagation:</strong> Wave splits and travels across deep ocean.</li>
+                                        <li><strong>Shoaling & Drawback:</strong> Wave compresses near coast, shoreline water recedes dramatically (drawback warning sign).</li>
+                                    </ol>
+                                    <div class="info-block bg-amber-950/20 border-amber-500 text-amber-300 text-xs mt-3">
+                                        <strong>Warning Sign:</strong> The sudden drawback exposing marine beds is a nature-given warning. Never enter the beach to investigate; seek high ground immediately!
+                                    </div>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 2: SEISMIC WAVE TYPES",
+                        tabs: [
+                            {
+                                name: "Wave Characteristics",
+                                widget: "seismic_grid_motion",
+                                content: `
+                                    <div class="lesson-title">Seismic Wave Classification</div>
+                                    <table class="content-table text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Wave Type</th>
+                                                <th>Category</th>
+                                                <th>Motion Description</th>
+                                                <th>Speed</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold text-sky-400">P-Wave (Primary)</td>
+                                                <td>Body Wave</td>
+                                                <td>Compressional (Push-Pull)</td>
+                                                <td>Fastest</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-yellow-400">S-Wave (Secondary)</td>
+                                                <td>Body Wave</td>
+                                                <td>Shear (Up-Down / Side-Side)</td>
+                                                <td>Slower</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-orange-400">L-Wave (Love)</td>
+                                                <td>Surface Wave</td>
+                                                <td>Horizontal sliding (Snake-like)</td>
+                                                <td>Slowest</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold text-red-400">R-Wave (Rayleigh)</td>
+                                                <td>Surface Wave</td>
+                                                <td>Elliptical Rolling (Ocean-like)</td>
+                                                <td>Slowest</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="text-slate-300 text-xs mt-4">
+                                        Toggle the active wave motion grid simulator on the right to visualize these mechanics.
+                                    </p>
+                                `
+                            },
+                            {
+                                name: "Body vs. Surface Waves",
+                                widget: "seismic_grid_motion",
+                                content: `
+                                    <div class="lesson-title">Propagation and Phase Behavior</div>
+                                    <p class="text-slate-300 text-xs mb-3">
+                                        <strong>P-waves (Primary Waves)</strong> compress and expand material in a push-pull direction. Because they are compressional, they can travel through solids, liquids, and gases. They are the only waves that can travel all the way through the Earth's liquid outer core to reach the opposite side.
+                                    </p>
+                                    <p class="text-slate-300 text-xs mb-3">
+                                        <strong>S-waves (Secondary Waves)</strong> move material perpendicular to wave paths (side-to-side). S-waves <strong>cannot travel through liquids</strong> because liquids lack shear resistance. This created the classic S-wave shadow zone, proving Earth's outer core is liquid.
+                                    </p>
+                                    <p class="text-slate-300 text-xs">
+                                        <strong>Surface Waves (L and R-waves)</strong> are confined near the surface and cause the highest structural destruction because of their high amplitude and rolling shear motions. Love waves shake horizontally, destroying foundations, while Rayleigh waves roll elliptically.
+                                    </p>
+                                `
+                            }
+                        ]
+                    },
+                    {
+                        title: "LESSON 3: WATER BEHAVIOR & COASTS",
+                        tabs: [
+                            {
+                                name: "Tsunami Impacts",
+                                widget: "tsunami_simulator",
+                                content: `
+                                    <div class="lesson-title">Coastal Inundation Variables</div>
+                                    <p class="text-slate-300 text-sm mb-4">
+                                        The final damage depends heavily on coastal geometry and natural buffers:
+                                    </p>
+                                    <ul class="space-y-4 text-xs text-slate-300">
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-red-400">Inundation Distance:</strong> The total inland path of water. Low-lying coastal flats allow water to carry miles inland.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-orange-400">Run-up Height:</strong> The maximum vertical elevation reached by waves above sea level. Some mega-tsunamis top 30 meters!
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-yellow-400">Debris Flow:</strong> Tsunami soup containing cars, wood, and concrete blocks serves as a destructive battering ram.
+                                        </li>
+                                        <li class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                            <strong class="text-emerald-400">Natural Barriers:</strong> Healthy mangrove forests and coastal coral reefs serve as natural dampers, reducing wave energy before impacts.
+                                        </li>
+                                    </ul>
+                                `
+                            }
+                        ]
+                    },
+                    { title: "SUMMATIVE TEST (PART III)", type: "quiz", key: "part3" }
+                ]
+            },
+            4: {
+                label: "GENERAL REVIEW",
+                lessons: [
+                    { title: "GENERAL REVIEW COMPREHENSIVE TEST", type: "quiz", key: "general" }
+                ]
+            }
+        };
+
+        const quizzes = {
+            part1: [
+                { q: "What is the primary cause of the Pacific Ring of Fire's high seismic activity?", a: ["Ocean currents", "Moon's gravity", "Tectonic plate interactions (Subduction)", "High temperature of the water"], c: 2 },
+                { q: "Where is the Philippines situated relative to the Ring of Fire?", a: ["Eastern edge", "Western edge", "Southern tip", "Middle of the ocean"], c: 1 },
+                { q: "What is a 'fault'?", a: ["A hole in the ground", "A fracture in the Earth's crust with movement", "A mountain top", "A type of rock"], c: 1 },
+                { q: "Which fault system is considered the backbone of the Philippines?", a: ["Valley Fault System", "Philippine Fault Zone (PFZ)", "San Andreas Fault", "Mariana Trench"], c: 1 },
+                { q: "A fault that has moved within the last 10,000 years is called:", a: ["Inactive", "Dormant", "Active", "Extinct"], c: 2 },
+                { q: "What type of stress creates a 'Normal Fault'?", a: ["Compression", "Tension", "Shear", "All of the above"], c: 1 },
+                { q: "What happens in a 'Reverse Fault'?", a: ["Hanging wall moves down", "Hanging wall moves up", "Blocks move horizontally", "Nothing happens"], c: 1 },
+                { q: "A strike-slip fault is caused by what kind of stress?", a: ["Compression", "Tension", "Shear", "Elastic"], c: 2 },
+                { q: "The 'Hanging Wall' is the block of rock that is:", a: ["Below the fault plane", "Above the fault plane", "On the side of the fault", "Always stationary"], c: 1 },
+                { q: "How much buffer zone is recommended by PHIVOLCS for building near active faults?", a: ["1 meter", "5 meters", "10 meters", "50 meters"], c: 1 }
+            ],
+            part2: [
+                { q: "What do we call the point on the surface directly above the focus?", a: ["Hypocenter", "Epicenter", "Crust", "Mantle"], c: 1 },
+                { q: "Magnitude measures what?", a: ["Damage felt", "Energy released at the source", "Speed of the wave", "Height of a tsunami"], c: 1 },
+                { q: "Intensity is a measure of:", a: ["Energy released", "How strong the shaking is felt and the damage caused", "The depth of the focus", "The length of the fault"], c: 1 },
+                { q: "Which scale is used by PHIVOLCS to measure intensity?", a: ["Richter Scale", "PEIS", "Celsius Scale", "Beaufort Scale"], c: 1 },
+                { q: "What instrument is used to detect and record earthquakes?", a: ["Barometer", "Seismograph", "Anemometer", "Thermometer"], c: 1 },
+                { q: "An 'Inactive Fault' is one that has not shown activity for at least:", a: ["100 years", "1,000 years", "10,000 years", "1 million years"], c: 2 },
+                { q: "Which region in the PH has a relatively lower risk of earthquakes?", a: ["Metro Manila", "Batanes", "Palawan", "Davao"], c: 2 },
+                { q: "The actual location of the earthquake rupture inside the Earth is called:", a: ["Epicenter", "Focus (Hypocenter)", "Fault line", "Core"], c: 1 },
+                { q: "Can an earthquake have multiple intensities?", a: ["No, only one", "Yes, depending on distance and ground conditions", "Only if it happens at night", "Only if it's magnitude 8.0"], c: 1 },
+                { q: "If an earthquake is felt by everyone and many are frightened, it likely has a high:", a: ["Magnitude", "Intensity", "Focus", "Epicenter"], c: 1 }
+            ],
+            part3: [
+                { q: "Which seismic wave travels fastest and arrives first?", a: ["S-wave", "P-wave", "Surface wave", "Love wave"], c: 1 },
+                { q: "Secondary (S) waves cannot travel through:", a: ["Solids", "Liquids", "Crust", "Mountains"], c: 1 },
+                { q: "A tsunami is primarily generated by:", a: ["Strong winds", "Undersea earthquakes with vertical movement", "Heavy rainfall", "Whale movements"], c: 1 },
+                { q: "Which wave type causes the most damage during an earthquake?", a: ["P-wave", "S-wave", "Surface wave", "Body wave"], c: 2 },
+                { q: "What happens to a tsunami wave's height as it enters shallow water?", a: ["It decreases", "It increases (Shoaling)", "It stays the same", "It disappears"], c: 1 },
+                { q: "The term 'Tsunami' comes from which language?", a: ["Chinese", "Japanese", "Filipino", "English"], c: 1 },
+                { q: "P-waves move the ground in what way?", a: ["Side to side", "Up and down", "Back and forth (Push-pull)", "Circular"], c: 2 },
+                { q: "S-waves move the ground in what way?", a: ["Push-pull", "Side to side/Transverse", "Back and forth", "Linear"], c: 1 },
+                { q: "A natural warning sign of a tsunami is:", a: ["Sudden drop in sea level", "Heavy rain", "Hot weather", "Falling stars"], c: 0 },
+                { q: "Body waves include which of the following?", a: ["Love and Rayleigh", "P and S waves", "Surface and Sea waves", "Primary and Tsunami waves"], c: 1 }
+            ],
+            general: [
+                { q: "Which country is NOT part of the Pacific Ring of Fire?", a: ["Philippines", "Japan", "United Kingdom", "Indonesia"], c: 2 },
+                { q: "What type of fault is the San Andreas Fault?", a: ["Normal", "Reverse", "Strike-slip", "Thrust"], c: 2 },
+                { q: "What causes rocks to store energy and eventually break?", a: ["Erosion", "Tectonic Stress", "Solar radiation", "Tides"], c: 1 },
+                { q: "The block below the fault plane is the:", a: ["Hanging Wall", "Footwall", "Epicenter", "Focus"], c: 1 },
+                { q: "Compression stress leads to what kind of fault?", a: ["Normal", "Reverse", "Strike-slip", "San Andreas"], c: 1 },
+                { q: "Which seismic waves are recorded first by a seismograph?", a: ["S-waves", "P-waves", "Surface waves", "Love waves"], c: 1 },
+                { q: "The PHIVOLCS Earthquake Intensity Scale (PEIS) has how many levels?", a: ["5", "10", "12", "7"], c: 1 },
+                { q: "Where is the Focus located?", a: ["On the surface", "Deep inside the Earth", "In the ocean only", "In the sky"], c: 1 },
+                { q: "A magnitude 7.0 earthquake releases how much more energy than a 6.0?", a: ["10 times", "32 times", "100 times", "2 times"], c: 1 },
+                { q: "Which region has lower earthquake risk in the Philippines?", a: ["Mindanao", "Palawan", "Luzon", "Samar"], c: 1 },
+                { q: "What instrument creates a seismogram?", a: ["Thermometer", "Seismograph", "Barometer", "Anemometer"], c: 1 },
+                { q: "The distance between the P-wave and S-wave arrival times helps find:", a: ["Magnitude", "Distance to the epicenter", "Depth of the ocean", "Temperature of core"], c: 1 },
+                { q: "A thrust fault is a low-angle:", a: ["Normal fault", "Reverse fault", "Strike-slip fault", "San Andreas fault"], c: 1 },
+                { q: " 'Drop, Cover, and Hold on' is a safety procedure for:", a: ["Floods", "Earthquakes", "Fires", "Volcanic ash"], c: 1 },
+                { q: "Tsunami waves in the deep ocean are:", a: ["Very high", "Very low in height", "Very slow", "Easily seen"], c: 1 },
+                { q: "Which of the following is a Body Wave?", a: ["Love wave", "Rayleigh wave", "S-wave", "Tsunami wave"], c: 2 },
+                { q: "Shear stress is associated with:", a: ["Normal faults", "Reverse faults", "Strike-slip faults", "All faults"], c: 2 },
+                { q: "Aftershocks are:", a: ["Bigger than main quake", "Smaller events following main quake", "Waves in air", "Ocean only"], c: 1 },
+                { q: "The West Valley Fault affects which region?", a: ["Davao", "Metro Manila and nearby", "Cebu", "Batanes"], c: 1 },
+                { q: "The scale used to measure magnitude today is the:", a: ["PEIS", "Moment Magnitude Scale", "Mercalli Scale", "Beaufort Scale"], c: 1 }
+            ]
+        };
+
+        function changePart(id) {
+            cancelActiveAnimation();
+            currentPart = id;
+            currentLessonIdx = 0;
+            currentTabIdx = 0;
+            updateUI();
+        }
+
+        function changeLesson(idx) {
+            cancelActiveAnimation();
+            currentLessonIdx = idx;
+            currentTabIdx = 0;
+            updateUI();
+        }
+
+        function changeTab(idx) {
+            cancelActiveAnimation();
+            currentTabIdx = idx;
+            updateUI();
+        }
+
+        function updateUI() {
+            // Highlighting Top Navigation buttons
+            for(let i=1; i<=4; i++) {
+                const btn = document.getElementById(`part-btn-${i}`);
+                if (currentPart === i) btn.classList.add('active-part');
+                else btn.classList.remove('active-part');
+            }
+
+            const data = appData[currentPart];
+            
+            // Updating Sidebar Lesson list
+            const list = document.getElementById('lesson-list');
+            list.innerHTML = '';
+            document.getElementById('lessons-counter').innerText = `${data.lessons.length} Item(s)`;
+
+            data.lessons.forEach((lesson, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-5 py-4 text-xs font-bold border-b border-slate-800 transition-all ${currentLessonIdx === idx ? 'active-lesson text-sky-400' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-850'}`;
+                
+                btn.innerHTML = `<div class="truncate">${lesson.title}</div>`;
+                btn.onclick = () => changeLesson(idx);
+                list.appendChild(btn);
+            });
+
+            // Updating Sub-Tabs underneath header
+            const tabsContainer = document.getElementById('content-tabs-container');
+            const currentLesson = data.lessons[currentLessonIdx];
+            tabsContainer.innerHTML = '';
+            
+            if (currentLesson.tabs) {
+                currentLesson.tabs.forEach((tab, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `py-4 text-xs whitespace-nowrap transition-all uppercase tracking-wider font-bold px-1.5 ${currentTabIdx === idx ? 'active-content-tab' : 'text-slate-400 hover:text-slate-200'}`;
+                    btn.innerText = tab.name;
+                    btn.onclick = () => changeTab(idx);
+                    tabsContainer.appendChild(btn);
+                });
+            } else {
+                const label = document.createElement('span');
+                label.className = "py-4 text-xs font-extrabold text-slate-400 uppercase tracking-widest";
+                label.innerText = currentLesson.title;
+                tabsContainer.appendChild(label);
+            }
+
+            // Populating visual Column & Textual column
+            const viewer = document.getElementById('content-viewer');
+            const visualPanel = document.getElementById('interactive-panel');
+            
+            if (currentLesson.type === 'quiz') {
+                visualPanel.className = "hidden lg:hidden"; // Hide interactive column on full screen quizzes
+                renderQuiz(currentLesson.key);
+            } else {
+                visualPanel.className = "w-full lg:w-1/2 p-6 bg-slate-900/30 flex flex-col justify-center items-center border-t lg:border-t-0 border-slate-800 overflow-y-auto";
+                
+                const activeTab = currentLesson.tabs[currentTabIdx];
+                viewer.innerHTML = `<div class="max-w-4xl mx-auto content-fade text-slate-300 text-sm leading-relaxed">${activeTab.content}</div>`;
+                
+                // Loading the interactive widget associated with the current tab
+                loadWidget(activeTab.widget);
+            }
+        }
+
+        function loadWidget(type) {
+            const panel = document.getElementById('interactive-panel');
+            panel.innerHTML = ''; // Clear previous widget state
+
+            const card = document.createElement('div');
+            card.className = "w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl content-fade";
+            
+            if (type === "tectonic_intro") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold tracking-widest uppercase text-amber-400">3D-Projected Crustal Stress</span>
+                        <span class="px-2.5 py-1 text-[9px] font-extrabold rounded-full bg-amber-500/10 text-amber-300">CONVECTION ACTIVE</span>
+                    </div>
+                    <canvas id="tectonicCanvas" class="w-full h-64 rounded-xl bg-slate-950 border border-slate-850 cursor-pointer shadow-inner"></canvas>
+                    <div class="mt-4 p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-center">
+                        <p class="text-xs text-slate-400">Drag to change mantle fluid cycle speeds</p>
+                        <input id="convectionSpeedSlider" type="range" min="1" max="5" value="2" class="w-full mt-2 accent-amber-500 bg-slate-800 h-1 rounded-lg outline-none">
+                    </div>
+                `;
+                panel.appendChild(card);
+                initTectonicCanvas();
+            } 
+            else if (type === "ring_of_fire") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-rose-400">Pacific Rim Tectonic Grid</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-500/10 text-rose-300">LIVE HEATMAP</span>
+                    </div>
+                    <div class="relative w-full h-72 rounded-xl bg-slate-950 border border-slate-850 overflow-hidden flex items-center justify-center">
+                        <svg viewBox="0 0 400 300" class="w-full h-full p-2">
+                            <!-- Continents Simplified outlines -->
+                            <path d="M 10,20 Q 50,50 40,120 T 20,240 L 10,280" stroke="#475569" stroke-width="3" fill="none"/>
+                            <path d="M 390,10 Q 350,60 380,150 T 370,290" stroke="#475569" stroke-width="3" fill="none"/>
+                            <!-- Trench Horseshoe Ring of fire path -->
+                            <path id="ringPath" d="M 80,260 Q 50,150 150,70 T 320,80 Q 360,180 340,260" stroke="#f43f5e" stroke-dasharray="5,5" stroke-width="3" fill="none"/>
+                            
+                            <!-- Subduction Trench Markers -->
+                            <g class="cursor-pointer" onclick="showHotspot('Philippine Trench', 'Western Pacific boundary. Subduction of the dense Philippine Sea Plate creates the deep trench system and triggers intense regional volcanism & earthquakes.')">
+                                <circle cx="100" cy="180" r="8" fill="#f43f5e" class="animate-ping" opacity="0.6"/>
+                                <circle cx="100" cy="180" r="5" fill="#f43f5e"/>
+                            </g>
+                            <g class="cursor-pointer" onclick="showHotspot('Marianas Trench', 'Deepest ocean trench in the world, formed by the heavy subduction of Pacific oceanic lithosphere beneath the Philippine Plate.')">
+                                <circle cx="130" cy="190" r="5" fill="#f43f5e"/>
+                            </g>
+                            <g class="cursor-pointer" onclick="showHotspot('Japan Arc', 'Converging point of several major plates producing frequent high-magnitude deep earthquakes and volatile stratovolcanoes.')">
+                                <circle cx="140" cy="100" r="5" fill="#f59e0b"/>
+                            </g>
+                            <g class="cursor-pointer" onclick="showHotspot('San Andreas Fault', 'Massive horizontal strike-slip boundary with active shear stresses and notable horizontal slip events in California.')">
+                                <circle cx="300" cy="70" r="5" fill="#3b82f6"/>
+                            </g>
+                            <g class="cursor-pointer" onclick="showHotspot('Andes Trench', 'Extensive subduction zone along Western South America creating deep-focus earthquakes and high Andean mountain peaks.')">
+                                <circle cx="350" cy="220" r="5" fill="#f43f5e"/>
+                            </g>
+                            
+                            <text x="110" y="175" fill="#cbd5e1" font-size="9" font-weight="bold">Philippine Plate</text>
+                            <text x="200" y="150" fill="#64748b" font-size="10" font-weight="bold">PACIFIC PLATE</text>
+                        </svg>
+                    </div>
+                    <div id="hotspot-info" class="mt-3 p-3 bg-slate-950 rounded-xl border border-slate-850 min-h-[60px]">
+                        <p class="text-xs text-slate-400 italic text-center">Click on any colored seismic hotspot node to inspect structural subduction mechanics</p>
+                    </div>
+                `;
+                panel.appendChild(card);
+            }
+            else if (type === "fault_simulator") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold tracking-widest uppercase text-sky-400">3D Interactive Fault Sandbox</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-sky-500/10 text-sky-300">PHYSICS ACTIVE</span>
+                    </div>
+                    <div class="flex gap-2 mb-3">
+                        <button onclick="setFaultMode('normal')" id="btn-fault-normal" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">TENSION (NORMAL)</button>
+                        <button onclick="setFaultMode('reverse')" id="btn-fault-reverse" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">COMPRESS (REVERSE)</button>
+                        <button onclick="setFaultMode('strike')" id="btn-fault-strike" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">SHEAR (STRIKE-SLIP)</button>
+                    </div>
+                    <canvas id="faultCanvas" class="w-full h-56 rounded-xl bg-slate-950 border border-slate-850 shadow-inner"></canvas>
+                    <div class="mt-3 text-center">
+                        <button onclick="triggerFaultSlip()" class="w-full py-3 bg-sky-600 hover:bg-sky-500 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-sky-600/25">Trigger Crustal Slip (Fault Break)</button>
+                        <p class="text-[10px] text-slate-400 mt-2">Observe energy ripples radiating outwards from focus upon snapping</p>
+                    </div>
+                `;
+                panel.appendChild(card);
+                initFaultSimulator();
+            }
+            else if (type === "elastic_rebound") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-yellow-400">Elastic Rebound Model</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-yellow-500/10 text-yellow-300">RULER SNAP</span>
+                    </div>
+                    <canvas id="reboundCanvas" class="w-full h-56 rounded-xl bg-slate-950 border border-slate-850 shadow-inner"></canvas>
+                    <div class="mt-4 p-3 bg-slate-950/60 rounded-xl border border-slate-850">
+                        <div class="flex justify-between text-xs text-slate-400 mb-2">
+                            <span>Stress / Deformation</span>
+                            <span id="reboundStressValue" class="text-yellow-400 font-bold">0%</span>
+                        </div>
+                        <input id="reboundSlider" type="range" min="0" max="100" value="0" class="w-full accent-yellow-500 bg-slate-800 h-1.5 rounded-lg outline-none">
+                        <p class="text-[9px] text-slate-500 mt-2 text-center">Slowly apply bending force. Overcoming rock elasticity results in structural snapping.</p>
+                    </div>
+                `;
+                panel.appendChild(card);
+                initReboundSimulator();
+            }
+            else if (type === "earthquake_anatomy") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-rose-400">Earthquake Block Anatomy</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-500/10 text-rose-300">STRUCTURAL LABELS</span>
+                    </div>
+                    <div class="relative w-full h-64 rounded-xl bg-slate-950 border border-slate-850 overflow-hidden flex items-center justify-center">
+                        <svg viewBox="0 0 300 240" class="w-full h-full p-2">
+                            <!-- Top Plane of Crust Block -->
+                            <polygon points="40,90 180,50 260,90 120,130" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+                            <!-- Front Left Plane -->
+                            <polygon points="40,90 120,130 120,200 40,160" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                            <!-- Front Right Plane -->
+                            <polygon points="120,130 260,90 260,160 120,200" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+                            
+                            <!-- Fault Plane cutting diagonal -->
+                            <line x1="100" y1="73" x2="190" y2="110" stroke="#f43f5e" stroke-width="3" stroke-dasharray="3,3"/>
+                            <line x1="120" y1="130" x2="120" y2="200" stroke="#f43f5e" stroke-width="2"/>
+                            
+                            <!-- Focus (Depth underground, epicenter representation) -->
+                            <g class="cursor-pointer" onclick="showAnatomyDetail('Focus (Hypocenter)', 'The actual underground coordinate along the fault plane where rock ruptures and slippage begins. Energy originates here.')">
+                                <circle cx="120" cy="150" r="10" fill="#ef4444" class="animate-ping" opacity="0.7"/>
+                                <circle cx="120" cy="150" r="6" fill="#ef4444"/>
+                                <text x="135" y="154" fill="#fca5a5" font-size="10" font-weight="extrabold">FOCUS</text>
+                            </g>
+                            
+                            <!-- Epicenter (Direct vertical line above focus) -->
+                            <g class="cursor-pointer" onclick="showAnatomyDetail('Epicenter', 'The point on the surface vertically aligned with the subterranean focus. Shaking is often strongest here.')">
+                                <circle cx="120" cy="110" r="8" fill="#f59e0b" class="animate-pulse"/>
+                                <line x1="120" y1="110" x2="120" y2="150" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2,2"/>
+                                <circle cx="120" cy="110" r="4" fill="#f59e0b"/>
+                                <text x="130" y="105" fill="#fde047" font-size="10" font-weight="extrabold">EPICENTER</text>
+                            </g>
+                            
+                            <!-- Fault Plane surface indicator -->
+                            <g class="cursor-pointer" onclick="showAnatomyDetail('Fault Plane', 'The fracture surface inside the lithosphere block where rock blocks slide relative to each other.')">
+                                <polygon points="110,65 130,60 180,120 160,125" fill="#38bdf8" opacity="0.3"/>
+                                <text x="200" y="70" fill="#38bdf8" font-size="9" font-weight="bold">FAULT PLANE</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div id="anatomy-info" class="mt-3 p-3 bg-slate-950 rounded-xl border border-slate-850 min-h-[60px]">
+                        <p class="text-xs text-slate-400 italic text-center">Click the yellow labels on the block model to inspect spatial definitions</p>
+                    </div>
+                `;
+                panel.appendChild(card);
+            }
+            else if (type === "lightbulb_magnitude_intensity") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-yellow-400">Magnitude / Intensity Lab</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-yellow-500/10 text-yellow-300">WATTAGE MODEL</span>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 flex flex-col justify-center items-center h-48 relative overflow-hidden">
+                        <div id="lightbulbGlow" class="absolute w-32 h-32 rounded-full bg-yellow-400/20 blur-xl transition-all duration-300"></div>
+                        <div class="relative flex flex-col items-center">
+                            <!-- Bulb SVG icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-400 duration-300 transition-all transform" id="bulbIcon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 017 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.09-2.15 4.1z"/>
+                            </svg>
+                            <span class="text-xs font-extrabold text-slate-200 mt-2" id="bulbWattageDisplay">Wattage (Magnitude): Mw 6.0</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <div>
+                            <div class="flex justify-between text-[11px] text-slate-400">
+                                <span>Wattage (Magnitude - Energy Released):</span>
+                                <span id="magSliderLabel" class="font-bold text-yellow-400">Mw 6.0</span>
+                            </div>
+                            <input id="magSlider" type="range" min="4" max="9" step="1" value="6" class="w-full accent-yellow-400 bg-slate-800 h-1 rounded-lg">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[11px] text-slate-400">
+                                <span>Distance to Source (Felt Location):</span>
+                                <span id="distSliderLabel" class="font-bold text-sky-400">50 km</span>
+                            </div>
+                            <input id="distSlider" type="range" min="10" max="200" step="10" value="50" class="w-full accent-sky-400 bg-slate-800 h-1 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-slate-400 block mb-1">Local Geological Foundation:</label>
+                            <select id="soilSelector" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-xs rounded-lg p-2 focus:outline-none">
+                                <option value="granite">Solid Bedrock / Granite (Low shaking magnification)</option>
+                                <option value="sediment">Loose Alluvial Soil / Sediment (High shaking magnification)</option>
+                            </select>
+                        </div>
+                        <div class="p-3 bg-slate-950 border border-slate-850 rounded-xl flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-300">Felt Intensity (PEIS Scale):</span>
+                            <span id="calculatedIntensity" class="text-lg font-black px-3 py-1 rounded bg-amber-500 text-slate-950">V</span>
+                        </div>
+                    </div>
+                `;
+                panel.appendChild(card);
+                initLightbulbLab();
+            }
+            else if (type === "philippine_fault_finder") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-orange-400">PHIVOLCS FaultFinder Mockup</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-orange-500/10 text-orange-300">ACTIVE SEARCH</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-[10px] text-slate-400 uppercase tracking-widest block mb-1">Select Search Location:</label>
+                            <select id="faultFinderLocation" class="w-full bg-slate-950 border border-slate-800 text-slate-300 text-xs rounded-lg p-2.5 focus:outline-none">
+                                <option value="marikina">Marikina City Hall, Metro Manila</option>
+                                <option value="quezon">Quezon City Hall, Metro Manila</option>
+                                <option value="palawan">Puerto Princesa, Palawan</option>
+                                <option value="davao">Davao City Centro, Mindanao</option>
+                            </select>
+                        </div>
+                        <button onclick="scanMockFaults()" class="w-full py-2.5 bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all">Execute Proximity Radar Scan</button>
+                        
+                        <div class="border border-slate-850 bg-slate-950/80 rounded-xl p-3 h-32 flex flex-col justify-center items-center text-center relative overflow-hidden" id="radarWindow">
+                            <div id="radarSweep" class="absolute w-full h-full border-t border-orange-500/30 rounded-full animate-spin hidden" style="transform-origin: center;"></div>
+                            <div id="radarReport" class="text-xs text-slate-400 italic">Select a site and start scanning</div>
+                        </div>
+                    </div>
+                `;
+                panel.appendChild(card);
+            }
+            else if (type === "tsunami_simulator") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-sky-400">Tsunami Shoaling Dynamics</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-sky-500/10 text-sky-300">FLUID CANVAS</span>
+                    </div>
+                    <canvas id="tsunamiCanvas" class="w-full h-60 rounded-xl bg-slate-950 border border-slate-850 shadow-inner"></canvas>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="triggerUnderseaQuake()" class="flex-1 py-3 bg-red-600 hover:bg-red-500 rounded-xl text-xs font-extrabold text-white uppercase tracking-wider transition-all">Trigger Undersea Quake</button>
+                        <button onclick="resetTsunami()" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition-all">Reset</button>
+                    </div>
+                    <p class="text-[9px] text-slate-500 text-center mt-2">Watch subduction thrust force seawater upward, creating shoaling at shallow shores.</p>
+                `;
+                panel.appendChild(card);
+                initTsunamiSimulator();
+            }
+            else if (type === "seismic_grid_motion") {
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-bold tracking-widest uppercase text-purple-400">Particle Wave Grid Simulator</span>
+                        <span class="px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-purple-500/10 text-purple-300">WAVE PATTERNS</span>
+                    </div>
+                    <div class="flex gap-1.5 mb-3">
+                        <button onclick="setWaveType('p')" id="btn-wave-p" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">P-WAVE (COMPRESSION)</button>
+                        <button onclick="setWaveType('s')" id="btn-wave-s" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">S-WAVE (SHEAR)</button>
+                        <button onclick="setWaveType('rayleigh')" id="btn-wave-r" class="flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 bg-slate-800 text-slate-300">R-WAVE (ROLL)</button>
+                    </div>
+                    <canvas id="waveCanvas" class="w-full h-56 rounded-xl bg-slate-950 border border-slate-850 shadow-inner"></canvas>
+                    <p class="text-[9px] text-slate-500 text-center mt-2">Animate individual soil layers and particles to isolate structural deformation profiles.</p>
+                `;
+                panel.appendChild(card);
+                initWaveSimulator();
+            }
+        }
+
+        /* 1. Mantle Convection Fluid Simulation Code */
+        function initTectonicCanvas() {
+            const canvas = document.getElementById('tectonicCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+            
+            let speed = 2;
+            const slider = document.getElementById('convectionSpeedSlider');
+            if(slider) {
+                slider.addEventListener('input', (e) => { speed = parseFloat(e.target.value); });
+            }
+
+            let angle = 0;
+            function draw() {
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(0, 0, width, height);
+
+                // Draw Earth layers
+                // Rigid Lithosphere Crust (Top 40px)
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(0, 0, width, 30);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(0, 30, width, 10);
+                
+                // Labels
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = 'bold 10px Inter';
+                ctx.fillText("CRUST / LITHOSPHERE (RIGID PLATES)", 20, 20);
+
+                // Draw mantle convection fluid cells (Two circular loops)
+                const cells = [
+                    { cx: width * 0.3, cy: height * 0.6, r: 40, clockwise: true },
+                    { cx: width * 0.7, cy: height * 0.6, r: 40, clockwise: false }
+                ];
+
+                ctx.strokeStyle = '#f97316';
+                ctx.lineWidth = 2;
+                cells.forEach(cell => {
+                    ctx.beginPath();
+                    ctx.arc(cell.cx, cell.cy, cell.r, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Fluid particle vector nodes moving along loop paths
+                    for(let i=0; i<4; i++) {
+                        let cellAngle = angle * (cell.clockwise ? 1 : -1) + (i * Math.PI / 2);
+                        let ax = cell.cx + Math.cos(cellAngle) * cell.r;
+                        let ay = cell.cy + Math.sin(cellAngle) * cell.r;
+                        
+                        ctx.fillStyle = '#ef4444';
+                        ctx.beginPath();
+                        ctx.arc(ax, ay, 4, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+
+                ctx.fillStyle = '#f97316';
+                ctx.font = 'bold 9px Inter';
+                ctx.fillText("MANTLE CONVECTION FLUID DYNAMICS", width * 0.25, height - 15);
+
+                angle += 0.01 * speed;
+                currentAnimationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* 2. Interactive 3D Fault Sandbox Code */
+        let faultMode = 'normal';
+        let faultOffset = 0;
+        let isSliding = false;
+        let waves = [];
+
+        function setFaultMode(mode) {
+            faultMode = mode;
+            faultOffset = 0;
+            waves = [];
+            document.getElementById('btn-fault-normal').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${mode === 'normal' ? 'bg-sky-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+            document.getElementById('btn-fault-reverse').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${mode === 'reverse' ? 'bg-sky-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+            document.getElementById('btn-fault-strike').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${mode === 'strike' ? 'bg-sky-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+        }
+
+        function triggerFaultSlip() {
+            if (isSliding) return;
+            isSliding = true;
+            waves = [];
+            // Generate seismic ripples at center point (hypocenter focus)
+            for(let i=0; i<5; i++) {
+                waves.push({ r: 0, maxR: 150 - i * 25, speed: 2 + i * 0.5 });
+            }
+        }
+
+        function initFaultSimulator() {
+            const canvas = document.getElementById('faultCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            setFaultMode('normal');
+
+            function draw() {
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(0, 0, width, height);
+
+                // Grid lines background
+                ctx.strokeStyle = '#334155';
+                ctx.lineWidth = 1;
+                for(let i=0; i<width; i+=40) {
+                    ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, height); ctx.stroke();
+                }
+
+                // Shifting block variables
+                if (isSliding) {
+                    if (faultOffset < 30) {
+                        faultOffset += 1.5;
+                    } else {
+                        isSliding = false;
+                    }
+                }
+
+                const midX = width / 2;
+                const splitY = height / 2;
+
+                if (faultMode === 'normal') {
+                    // Normal Fault: Hanging Wall slides DOWN (tension)
+                    ctx.fillStyle = '#1e293b';
+                    ctx.beginPath();
+                    ctx.moveTo(30, splitY);
+                    ctx.lineTo(midX, splitY);
+                    ctx.lineTo(midX - 30, height - 20);
+                    ctx.lineTo(30, height - 20);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.strokeStyle = '#475569';
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#334155';
+                    ctx.beginPath();
+                    ctx.moveTo(midX, splitY + faultOffset);
+                    ctx.lineTo(width - 30, splitY + faultOffset);
+                    ctx.lineTo(width - 60, height - 20 + faultOffset);
+                    ctx.lineTo(midX - 30, height - 20 + faultOffset);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#0ea5e9';
+                    ctx.font = 'bold 10px Inter';
+                    ctx.fillText("← Tension (Pulling)", 40, splitY - 15);
+                    ctx.fillText("Tension (Pulling) →", midX + 30, splitY - 15);
+                } 
+                else if (faultMode === 'reverse') {
+                    // Reverse Fault: Hanging Wall slides UP (compression)
+                    ctx.fillStyle = '#1e293b';
+                    ctx.beginPath();
+                    ctx.moveTo(30, splitY);
+                    ctx.lineTo(midX, splitY);
+                    ctx.lineTo(midX - 30, height - 20);
+                    ctx.lineTo(30, height - 20);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.strokeStyle = '#475569';
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#334155';
+                    ctx.beginPath();
+                    ctx.moveTo(midX, splitY - faultOffset);
+                    ctx.lineTo(width - 30, splitY - faultOffset);
+                    ctx.lineTo(width - 60, height - 20 - faultOffset);
+                    ctx.lineTo(midX - 30, height - 20 - faultOffset);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#ef4444';
+                    ctx.font = 'bold 10px Inter';
+                    ctx.fillText("→ Compression (Squeezing) ←", midX - 70, splitY - 15);
+                } 
+                else {
+                    // Strike-Slip: Lateral sliding blocks horizontally
+                    ctx.fillStyle = '#1e293b';
+                    ctx.fillRect(40, 50, midX - 45 + faultOffset, height - 100);
+                    ctx.fillStyle = '#334155';
+                    ctx.fillRect(midX + faultOffset, 50, midX - 45, height - 100);
+                    
+                    ctx.strokeStyle = '#ef4444';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(midX + faultOffset, 50);
+                    ctx.lineTo(midX + faultOffset, height - 50);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.font = 'bold 10px Inter';
+                    ctx.fillText("← Left lateral shear slider →", 50, 40);
+                }
+
+                // Ripple effect if triggered
+                if (waves.length > 0) {
+                    ctx.strokeStyle = '#e11d48';
+                    waves.forEach(w => {
+                        ctx.beginPath();
+                        ctx.arc(midX, splitY, w.r, 0, Math.PI * 2);
+                        ctx.lineWidth = 1.5;
+                        ctx.stroke();
+                        w.r += w.speed;
+                    });
+                    waves = waves.filter(w => w.r < w.maxR);
+                }
+
+                currentAnimationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* 3. Elastic Rebound Ruler Snapping Code */
+        function initReboundSimulator() {
+            const canvas = document.getElementById('reboundCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            let deflection = 0;
+            const slider = document.getElementById('reboundSlider');
+            
+            if(slider) {
+                slider.addEventListener('input', (e) => {
+                    const percent = parseInt(e.target.value);
+                    document.getElementById('reboundStressValue').innerText = `${percent}%`;
+                    deflection = percent;
+                    
+                    if (percent >= 98) {
+                        triggerRulerSnap();
+                    }
+                });
+            }
+
+            let snapOffset = 0;
+            let snapPhase = false;
+
+            function triggerRulerSnap() {
+                snapPhase = true;
+                snapOffset = 15;
+                slider.value = 0;
+                deflection = 0;
+                document.getElementById('reboundStressValue').innerText = `0% (RUPTURED!)`;
+                
+                setTimeout(() => { snapPhase = false; snapOffset = 0; }, 1000);
+            }
+
+            function draw() {
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.fillStyle = '#b45309'; // Wood brown ruler
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 3;
+
+                const startX = 40;
+                const startY = height / 2;
+                const rulerLength = width - 80;
+
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+
+                if (snapPhase) {
+                    // Snapped / severed ruler look
+                    ctx.lineTo(startX + rulerLength / 2 - 10, startY - snapOffset);
+                    ctx.moveTo(startX + rulerLength / 2 + 10, startY + snapOffset);
+                    ctx.lineTo(startX + rulerLength, startY);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.font = 'bold 12px Inter';
+                    ctx.fillText("⚡ SNAP! ENERGY RELEASED", width / 2 - 80, height / 2 - 30);
+                } else {
+                    // Curved elastic line representing bending wood fibers
+                    const ctrlX = startX + rulerLength / 2;
+                    const ctrlY = startY + deflection / 1.5;
+                    ctx.quadraticCurveTo(ctrlX, ctrlY, startX + rulerLength, startY);
+                    ctx.stroke();
+
+                    // Loading anchor representation applying force
+                    ctx.fillStyle = '#475569';
+                    ctx.beginPath();
+                    ctx.arc(startX + rulerLength, startY, 10, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                currentAnimationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* 4. Magnitude vs. Intensity Lab Code */
+        function initLightbulbLab() {
+            const magSlider = document.getElementById('magSlider');
+            const distSlider = document.getElementById('distSlider');
+            const soilSelector = document.getElementById('soilSelector');
+
+            if (!magSlider || !distSlider || !soilSelector) return;
+
+            function calculatePEIS() {
+                const magnitude = parseInt(magSlider.value);
+                const distance = parseInt(distSlider.value);
+                const soil = soilSelector.value;
+
+                document.getElementById('magSliderLabel').innerText = `Mw ${magnitude}.0`;
+                document.getElementById('distSliderLabel').innerText = `${distance} km`;
+                document.getElementById('bulbWattageDisplay').innerText = `Wattage (Magnitude): Mw ${magnitude}.0`;
+
+                // Attenuation formula output
+                let rawScore = (magnitude * 1.5) - (Math.log10(distance) * 2.5);
+                if (soil === 'sediment') {
+                    rawScore += 1.5; // Soil site amplification multiplier
+                }
+
+                const peisLevels = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+                let levelIdx = Math.floor(rawScore);
+                if (levelIdx < 0) levelIdx = 0;
+                if (levelIdx >= peisLevels.length) levelIdx = peisLevels.length - 1;
+
+                const calculated = peisLevels[levelIdx];
+                const display = document.getElementById('calculatedIntensity');
+                display.innerText = calculated;
+
+                // Modulate lightbulb glow visual
+                const glow = document.getElementById('lightbulbGlow');
+                const scaleFactor = (magnitude / 9.0);
+                glow.style.transform = `scale(${scaleFactor * 2.2})`;
+                glow.style.opacity = (scaleFactor * 0.8).toString();
+            }
+
+            magSlider.addEventListener('input', calculatePEIS);
+            distSlider.addEventListener('input', calculatePEIS);
+            soilSelector.addEventListener('change', calculatePEIS);
+
+            calculatePEIS();
+        }
+
+        /* 5. Undersea Tsunami Shoaling Simulation Code */
+        let tWaterX = 0;
+        let tsunamiProgress = 0;
+        let isTsunamiActive = false;
+
+        function triggerUnderseaQuake() {
+            isTsunamiActive = true;
+            tsunamiProgress = 0;
+        }
+
+        function resetTsunami() {
+            isTsunamiActive = false;
+            tsunamiProgress = 0;
+        }
+
+        function initTsunamiSimulator() {
+            const canvas = document.getElementById('tsunamiCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            function draw() {
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(0, 0, width, height);
+
+                // Shore slope profile (Deep ocean on left, shallow beach on right)
+                ctx.fillStyle = '#292524';
+                ctx.beginPath();
+                ctx.moveTo(0, height - 30);
+                ctx.lineTo(width * 0.6, height - 30);
+                ctx.lineTo(width, height - 100); // Slopes upward
+                ctx.lineTo(width, height);
+                ctx.lineTo(0, height);
+                ctx.closePath();
+                ctx.fill();
+
+                // Draw Water Layer
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.6)';
+                
+                if (isTsunamiActive) {
+                    tsunamiProgress += 0.005;
+                    if (tsunamiProgress > 1.0) tsunamiProgress = 0;
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, height - 50);
+
+                    for (let x = 0; x < width; x++) {
+                        let y = height - 50;
+                        const distToBeach = (width - x) / width;
+                        
+                        // Wave envelope increases closer to beach (Shoaling)
+                        const shoalingMultiplier = Math.exp((1 - distToBeach) * 2.5) * 12;
+                        
+                        const wavePhase = (x / 30) - (tsunamiProgress * Math.PI * 4);
+                        const waveH = Math.sin(wavePhase) * shoalingMultiplier;
+                        
+                        ctx.lineTo(x, y - waveH);
+                    }
+                    ctx.lineTo(width, height);
+                    ctx.lineTo(0, height);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.font = '9px Inter';
+                    ctx.fillText("DEEP WATER: Low Amplitude", 20, 40);
+                    ctx.fillText("SHALLOW COAST: Wave height spikes! (Shoaling)", width * 0.5, 40);
+                } else {
+                    // Calm water line representation
+                    ctx.fillRect(0, height - 50, width, height);
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.font = 'bold 9px Inter';
+                    ctx.fillText("CALM WATER LEVEL", 30, height - 60);
+                }
+
+                currentAnimationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* 6. Particle Wave Grid Motion Code */
+        let activeWave = 'p';
+        let wavePhase = 0;
+
+        function setWaveType(type) {
+            activeWave = type;
+            document.getElementById('btn-wave-p').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${type === 'p' ? 'bg-purple-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+            document.getElementById('btn-wave-s').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${type === 's' ? 'bg-purple-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+            document.getElementById('btn-wave-r').className = `flex-1 py-2 text-[10px] rounded-lg font-extrabold border border-slate-700 ${type === 'rayleigh' ? 'bg-purple-600 text-white' : 'bg-slate-850 text-slate-400'}`;
+        }
+
+        function initWaveSimulator() {
+            const canvas = document.getElementById('waveCanvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            setWaveType('p');
+
+            const cols = 22;
+            const rows = 10;
+            const spacingX = width / (cols + 1);
+            const spacingY = height / (rows + 1);
+
+            function draw() {
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.fillStyle = '#c084fc';
+
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let originalX = (c + 1) * spacingX;
+                        let originalY = (r + 1) * spacingY;
+
+                        let px = originalX;
+                        let py = originalY;
+
+                        const factor = Math.sin((originalX / 40) - wavePhase);
+
+                        if (activeWave === 'p') {
+                            // Primary Wave: Longitudinal push-pull along propagation line
+                            px += factor * 12;
+                        } 
+                        else if (activeWave === 's') {
+                            // Secondary Wave: Transverse up-down displacement
+                            py += factor * 14;
+                        } 
+                        else {
+                            // Rayleigh Wave: Elliptical rolling motion diminishing with depth
+                            const depthDecay = Math.exp(-r * 0.2); 
+                            px += Math.cos((originalX / 40) - wavePhase) * 12 * depthDecay;
+                            py += Math.sin((originalX / 40) - wavePhase) * 12 * depthDecay;
+                        }
+
+                        ctx.beginPath();
+                        ctx.arc(px, py, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                wavePhase += 0.08;
+                currentAnimationId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        /* Information Node Visual Helpers */
+        function showHotspot(name, text) {
+            const banner = document.getElementById('hotspot-info');
+            banner.innerHTML = `
+                <h4 class="text-xs font-black uppercase text-rose-400">${name}</h4>
+                <p class="text-[11px] text-slate-300 mt-1">${text}</p>
+            `;
+        }
+
+        function showAnatomyDetail(title, desc) {
+            const banner = document.getElementById('anatomy-info');
+            banner.innerHTML = `
+                <h4 class="text-xs font-black uppercase text-sky-400">${title}</h4>
+                <p class="text-[11px] text-slate-300 mt-1">${desc}</p>
+            `;
+        }
+
+        /* Mock PHIVOLCS GIS Search Radar Code */
+        function scanMockFaults() {
+            const select = document.getElementById('faultFinderLocation');
+            const radar = document.getElementById('radarWindow');
+            const sweep = document.getElementById('radarSweep');
+            const report = document.getElementById('radarReport');
+
+            sweep.classList.remove('hidden');
+            report.innerHTML = `<span class="text-orange-400 font-extrabold animate-pulse">TRANSMITTING PING SIGNAL...</span>`;
+
+            setTimeout(() => {
+                sweep.classList.add('hidden');
+                const val = select.value;
+
+                if (val === "marikina") {
+                    report.innerHTML = `
+                        <div class="text-left w-full text-[11px] leading-relaxed">
+                            <strong class="text-red-500 uppercase tracking-wider block">🚨 DETECTED CRITICAL TRACE</strong>
+                            <strong class="text-white">Fault Line:</strong> West Valley Fault Trace<br>
+                            <strong class="text-white">Proximity Distance:</strong> <span class="text-red-400 font-bold">120 meters</span><br>
+                            <strong class="text-white">Advisory:</strong> Within hazard zone boundary. Confirm strict compliance with standard 5-meter buffer buffer zones.
+                        </div>
+                    `;
+                } 
+                else if (val === "quezon") {
+                    report.innerHTML = `
+                        <div class="text-left w-full text-[11px] leading-relaxed">
+                            <strong class="text-amber-500 uppercase tracking-wider block">⚠️ MODERATE REGIONAL ALERT</strong>
+                            <strong class="text-white">Fault Line:</strong> Associated East Valley segments adjacent<br>
+                            <strong class="text-white">Proximity Distance:</strong> <span class="text-amber-400 font-bold">4.2 kilometers</span><br>
+                            <strong class="text-white">Advisory:</strong> Monitor soil parameters. Confirm structures match local code guidelines against liquefaction.
+                        </div>
+                    `;
+                }
+                else if (val === "davao") {
+                    report.innerHTML = `
+                        <div class="text-left w-full text-[11px] leading-relaxed">
+                            <strong class="text-amber-500 uppercase tracking-wider block">⚠️ ACTIVE REGIONAL TRACE</strong>
+                            <strong class="text-white">Fault Line:</strong> Central Mindanao Strike-Slip Zone<br>
+                            <strong class="text-white">Proximity Distance:</strong> <span class="text-amber-400 font-bold">12.5 kilometers</span><br>
+                            <strong class="text-white">Advisory:</strong> Continuous historical active stresses. Ensure anchoring assemblies are retrofitted.
+                        </div>
+                    `;
+                }
+                else {
+                    report.innerHTML = `
+                        <div class="text-left w-full text-[11px] leading-relaxed">
+                            <strong class="text-emerald-500 uppercase tracking-wider block">✅ STABLE CRUST SECURED</strong>
+                            <strong class="text-white">Fault Line:</strong> None mapped active within 10,000 years<br>
+                            <strong class="text-white">Proximity Distance:</strong> <span class="text-emerald-400 font-bold">>150 kilometers</span><br>
+                            <strong class="text-white">Advisory:</strong> Situated on Sundaland microplate block. Minimal active seismic hazard footprint.
+                        </div>
+                    `;
+                }
+            }, 1200);
+        }
+
+        /* Assessment Handling Logic */
+        function selectAnswer(quizKey, qIdx, aIdx) {
+            if (quizState[quizKey].submitted) return;
+            quizState[quizKey].answers[qIdx] = aIdx;
+            renderQuiz(quizKey);
+        }
+
+        function submitQuiz(quizKey) {
+            quizState[quizKey].submitted = true;
+            renderQuiz(quizKey);
+            document.getElementById('content-viewer').scrollTo({top:0, behavior:'smooth'});
+        }
+
+        function renderQuiz(key) {
+            const questions = quizzes[key];
+            const state = quizState[key];
+            const viewer = document.getElementById('content-viewer');
+            
+            let score = 0;
+            if (state.submitted) {
+                questions.forEach((q, i) => { if(state.answers[i] === q.c) score++; });
+            }
+
+            let html = `<div class="max-w-3xl mx-auto content-fade">
+                <div class="flex items-center justify-between mb-8 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+                    <div>
+                        <h2 class="text-lg font-black text-white uppercase tracking-tight">${key === 'general' ? 'GENERAL CURRICULUM REVIEW' : 'CHAPTER SUMMATIVE TEST'}</h2>
+                        <p class="text-slate-400 text-[10px] mt-1 uppercase tracking-widest">Interactive Science 7 Assessment</p>
+                    </div>
+                    ${state.submitted ? `<div class="bg-orange-500 text-slate-950 px-6 py-2.5 rounded-xl font-black text-2xl shadow-lg shadow-orange-500/20">${score}/${questions.length}</div>` : ''}
+                </div>`;
+
+            questions.forEach((q, qIdx) => {
+                const isCorrect = state.answers[qIdx] === q.c;
+                html += `<div class="mb-6 p-6 bg-slate-900/60 rounded-2xl border ${state.submitted ? (isCorrect ? 'border-emerald-500/30 bg-emerald-950/10' : 'border-rose-500/30 bg-rose-950/10') : 'border-slate-800'}">
+                    <p class="font-bold text-slate-100 mb-4 text-sm">${qIdx + 1}. ${q.q}</p>
+                    <div class="grid">`;
+                
+                q.a.forEach((ans, aIdx) => {
+                    let cls = "quiz-option ";
+                    if (state.submitted) {
+                        cls += "disabled ";
+                        if (aIdx === q.c) cls += "quiz-correct ";
+                        else if (aIdx === state.answers[qIdx]) cls += "quiz-wrong ";
+                    } else if (state.answers[qIdx] === aIdx) {
+                        cls += "quiz-selected ";
+                    }
+                    html += `<button onclick="selectAnswer('${key}', ${qIdx}, ${aIdx})" class="${cls}">${ans}</button>`;
+                });
+
+                html += `</div></div>`;
+            });
+
+            if (!state.submitted) {
+                html += `<div class="flex justify-center mt-8 mb-12">
+                    <button onclick="submitQuiz('${key}')" class="bg-sky-600 hover:bg-sky-500 text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-sky-600/20 uppercase tracking-widest text-xs transition-all">FINISH & COMPUTE SCORE</button>
+                </div>`;
+            } else {
+                html += `<div class="flex justify-center mt-8 mb-12">
+                    <button onclick="quizState['${key}'].submitted=false; quizState['${key}'].answers=[]; renderQuiz('${key}')" class="bg-slate-850 hover:bg-slate-800 text-slate-300 px-10 py-4 rounded-2xl font-black shadow-lg text-xs uppercase tracking-widest transition-all border border-slate-700">RETRY CHAPTER TEST</button>
+                </div>`;
+            }
+
+            html += `</div>`;
+            viewer.innerHTML = html;
+        }
+
+        window.onload = () => updateUI();
+    </script>
+</body>
+</html>
